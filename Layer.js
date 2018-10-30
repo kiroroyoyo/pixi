@@ -11,7 +11,7 @@ function Layer(num, gap, container, alpha, scale, delta) {
 Layer.prototype.setXY = function() {
 
 	this.container.x = centerX;
-	this.container.y = centerY + 65;
+	this.container.y = centerY + 55;
 	this.container.alpha = this.alpha;
 
 
