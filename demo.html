@@ -38,15 +38,6 @@ var TextStyle = new PIXI.TextStyle({
     fontSize: 12,
     fontWeight: 'bold',
     fill: '#ffffff'
-    /*stroke: '#4a1850',
-    strokeThickness: 5,*/
-    // dropShadow: true,
-    // dropShadowColor: '#000000',
-    // dropShadowBlur: 4,
-    // dropShadowAngle: Math.PI / 6,
-    // dropShadowDistance: 6,
-    // wordWrap: true,
-    // wordWrapWidth: 440
 });
 
 // 全局数组
@@ -59,10 +50,8 @@ function init(){
   var allContainer = new PIXI.projection.Container2d();
   var container1 = new PIXI.projection.Container2d();
   app.stage.addChild(container1);
-  // center the sprite's anchor point
   yellow.anchor.set(0.5);
 
-  // move the sprite to the center of the screen
   yellow.x = centerX;
   yellow.y = centerY;
 
@@ -93,45 +82,8 @@ function init(){
   container1.addChild(yellow);
 
 
-
-  function onClick(sprite){
-    sprite.on('touchend', function(e){
-      for (var j = allSprites.length - 1; j >= 0; j--) {
-        var dis = distance({x: this.x, y: this.y}, {x: allSprites[j].x, y: allSprites[j].y});
-        if (dis < 100) {
-          console.log(distance(e.data.global, {x: allSprites[j].x, y: allSprites[j].y}));
-          new TWEEN.Tween(allSprites[j].scale).to({
-              x: 2,
-              y: 2
-          },
-          100).start();
-        }
-      }
-    });
-  }
-  allSprites.forEach(onClick);
-
-  // var textContainer = new PIXI.Container();
-  // textContainer.scale.set(1.5);
-
-  // allSprites.forEach(function(value){
-  //   var richText = new PIXI.Text('曾经有个', TextStyle);
-  //   richText.x =value.x - 40;
-  //   richText.y = value.y - 10;
-  //   textContainer.addChild(richText);
-  // })
-
-  // textContainer.x = centerX;
-  // textContainer.y = centerY;
-  // app.stage.addChild(textContainer);
-
   app.ticker.add(function() {
       TWEEN.update();
-      // textContainer.children.forEach(function(value, index){
-      //   value.x =allSprites[index].x - 40;
-      //   value.y =allSprites[index].y - 10;
-      // })
-
   });
 
 
@@ -140,6 +92,8 @@ function init(){
     layer3.stopAnimate();
     layer4.stopAnimate();
   }
+
+
 
   var pos = allContainer.toLocal({x:375,y:-2000}, undefined, undefined, undefined, PIXI.projection.TRANSFORM_STEP.BEFORE_PROJ);
     pos.y = -pos.y;
