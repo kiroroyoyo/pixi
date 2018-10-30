@@ -24,7 +24,7 @@ Layer.prototype.setXY = function() {
 		richText.anchor.set(0.5, 0.5);
 		richText.position.set(-5, -18);
 
-		var container = new PIXI.Container();
+		var container = new PIXI.projection.Container2d();
 		container.addChild(richText);
 
 		var texture = Math.floor ( Math.random ( ) * 10 + 1 ) < 7 ? resources.blue.texture : resources.pink.texture;
