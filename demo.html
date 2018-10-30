@@ -1,0 +1,157 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=750 user-scalable=no">
+<style>
+  * {
+    margin: 0;
+  }
+  /*body{
+    -webkit-transform: perspective(1000px) rotateX(30deg);  
+    background-color: #080634;
+  }*/
+</style>
+<title>demo</title>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.7.1/pixi.min.js"></script>
+<script src="js/pixi-projection.js"></script>
+<script src="js/Tween.js"></script>
+<script src="Layer.js"></script>
+<script>
+//简写
+//var renderer = autoDetectRenderer(window.innerWidth, 3200,{antialias: false, transparent: false, resolution: 1});
+var app = new PIXI.Application(window.innerWidth, window.innerHeight, {backgroundColor : 0x080634, resolution: 1});
+var centerX = app.screen.width / 2;
+var centerY =app.screen.height / 2;
+document.body.appendChild(app.view);
+
+var resources = PIXI.loader.resources;
+PIXI.loader
+  .add('yellow', 'images/p1.png')
+  .add('blue', 'images/p2.png')
+  .add('pink', 'images/p3.png');
+PIXI.loader.load(function(loader, resources) {
+    init();
+});
+
+var TextStyle = new PIXI.TextStyle({
+    fontFamily: 'Arial',
+    fontSize: 12,
+    fontWeight: 'bold',
+    fill: '#ffffff'
+    /*stroke: '#4a1850',
+    strokeThickness: 5,*/
+    // dropShadow: true,
+    // dropShadowColor: '#000000',
+    // dropShadowBlur: 4,
+    // dropShadowAngle: Math.PI / 6,
+    // dropShadowDistance: 6,
+    // wordWrap: true,
+    // wordWrapWidth: 440
+});
+
+// 全局数组
+var allSprites = [];
+function init(){
+
+  var yellow = new PIXI.Sprite(resources.yellow.texture);
+
+  //第1层
+  var allContainer = new PIXI.projection.Container2d();
+  var container1 = new PIXI.projection.Container2d();
+  app.stage.addChild(container1);
+  // center the sprite's anchor point
+  yellow.anchor.set(0.5);
+
+  // move the sprite to the center of the screen
+  yellow.x = centerX;
+  yellow.y = centerY;
+
+  //第2层
+  var container2 = new PIXI.projection.Container2d();
+  allContainer.addChild(container2);
+  var layer2 = new Layer(8, 100, container2, 1, .5, .05);
+  layer2.setXY();
+  layer2.animate();
+  //第3层
+  var container3 = new PIXI.projection.Container2d();
+  allContainer.addChild(container3);
+  var layer3 = new Layer(12, 150, container3, .4, .4, .01);
+  layer3.setXY();
+  layer3.animate();
+
+
+  //第4层
+  var container4 = new PIXI.projection.Container2d();
+  allContainer.addChild(container4);
+  var layer4 = new Layer(14, 200, container4, .3, .4, .004);
+  layer4.setXY();
+  layer4.animate();
+
+  app.stage.addChild(allContainer);
+
+
+  container1.addChild(yellow);
+
+
+
+  function onClick(sprite){
+    sprite.on('touchend', function(e){
+      for (var j = allSprites.length - 1; j >= 0; j--) {
+        var dis = distance({x: this.x, y: this.y}, {x: allSprites[j].x, y: allSprites[j].y});
+        if (dis < 100) {
+          console.log(distance(e.data.global, {x: allSprites[j].x, y: allSprites[j].y}));
+          new TWEEN.Tween(allSprites[j].scale).to({
+              x: 2,
+              y: 2
+          },
+          100).start();
+        }
+      }
+    });
+  }
+  allSprites.forEach(onClick);
+
+  // var textContainer = new PIXI.Container();
+  // textContainer.scale.set(1.5);
+
+  // allSprites.forEach(function(value){
+  //   var richText = new PIXI.Text('曾经有个', TextStyle);
+  //   richText.x =value.x - 40;
+  //   richText.y = value.y - 10;
+  //   textContainer.addChild(richText);
+  // })
+
+  // textContainer.x = centerX;
+  // textContainer.y = centerY;
+  // app.stage.addChild(textContainer);
+
+  app.ticker.add(function() {
+      TWEEN.update();
+      // textContainer.children.forEach(function(value, index){
+      //   value.x =allSprites[index].x - 40;
+      //   value.y =allSprites[index].y - 10;
+      // })
+
+  });
+
+
+  function stopRotate(){
+    layer2.stopAnimate();
+    layer3.stopAnimate();
+    layer4.stopAnimate();
+  }
+
+  var pos = allContainer.toLocal({x:375,y:-2000}, undefined, undefined, undefined, PIXI.projection.TRANSFORM_STEP.BEFORE_PROJ);
+    pos.y = -pos.y;
+    pos.x = -pos.x;
+    allContainer.proj.setAxisY(pos, -1);
+
+    allContainer.scale.y = .6;
+
+}
+
+
+</script>
+</body>
+
+

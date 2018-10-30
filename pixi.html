@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=750 user-scalable=no">
+	<title>test</title>
+	<style type="text/css">
+		* {padding: 0; margin: 0}
+	</style>
+</head>
+	<script src="js/pixi.min.js"></script>
+	<script src="js/Tween.js"></script>
+<body>
+	<script type="text/javascript">
+
+		var Container = PIXI.Container,
+	    autoDetectRenderer = PIXI.autoDetectRenderer,
+	    loader = PIXI.loader,
+	    resources = PIXI.loader.resources,
+	    Sprite = PIXI.Sprite;
+	    Graphics = PIXI.Graphics;
+
+	    var type = "WebGL"
+	    if(!PIXI.utils.isWebGLSupported()){
+	      type = "canvas"
+	    }
+
+	    PIXI.utils.sayHello(type)
+
+	    //Create the renderer
+	    //var renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight,{antialias: false, transparent: false, resolution: 1});
+		var renderer = autoDetectRenderer(window.innerWidth, 3200,{antialias: false, transparent: false, resolution: 1});
+		renderer.view.style.position = "absolute";
+		renderer.view.style.display = "block";
+		renderer.autoResize = true;
+
+
+		//Add the canvas to the HTML document
+		document.body.appendChild(renderer.view);
+
+		//Create a container object called the `stage`
+		var stage = new Container();
+
+		loader 
+		  .add("images/text/0.png")
+		  .add("images/text/1.png")
+		  .add("images/text/2.png")
+		  .add("images/text/3.png")
+		  .add("images/text/4.png")
+		  .add("images/text/5.png")
+		  .add("images/text/6.png")
+		  .add("images/text/7.png")
+		  .add("images/text/8.png")
+		  .add("images/text/9.png")
+		  .add("images/text/10.png")
+		  .add("images/text/11.png")
+		  .add("images/text/12.png")
+		  .add("images/text/13.png")
+		  .add("images/text/14.png")
+		  .add("images/text/15.png")
+		  .add("images/text/16.png")
+		  .add("images/text/17.png")
+		  .add("images/text/18.png")
+		  .add("images/text/19.png")
+		  .add("images/text/20.png")
+		  .add("images/text/bg.png")
+		  .add("images/text/bottom.png")
+		  .add("images/2/rect.png")
+		  .load(setup);
+
+		function setup() {
+
+		  //Create the `cat` sprite, add it to the stage, and render it
+
+		  //var cat = new Sprite(resources["images/theme-thumb.png"].texture);  
+		  var cat = new Sprite(
+			  resources["images/text/0.png"].texture);
+		  var C = new Graphics();
+		  var a = window.innerWidth;
+	        C.beginFill(0xfffbee);
+	        C.drawRect( 0, 0, 4 * a, 3200);
+	        console.log(a);
+	        C.endFill();
+	        C.x = 0;
+	        C.y = 0;
+	        stage.addChild(C);
+	        var y = [{
+                texture: resources["images/text/0.png"].texture,
+                speed: 0
+            },
+            {
+                texture: resources["images/text/1.png"].texture,
+                speed: .5,
+                repeat: !0
+            },
+            {
+                texture: resources["images/text/2.png"].texture,
+                speed: 4
+            },
+            {
+                texture: resources["images/text/3.png"].texture,
+                speed: 1.8
+            },
+            {
+                texture: resources["images/text/4.png"].texture,
+                speed: .8
+            },
+            {
+                texture: resources["images/text/5.png"].texture,
+                speed: .8,
+                repeat: !0
+            },
+            {
+                texture: resources["images/text/6.png"].texture,
+                speed: 1.5
+            },
+            {
+                texture: resources["images/text/7.png"].texture,
+                speed: 1
+            },
+            {
+                texture: resources["images/text/8.png"].texture,
+                speed: .5,
+                repeat: !0
+            },
+            {
+                texture: resources["images/text/9.png"].texture,
+                speed: 1
+            },
+            {
+                texture: resources["images/text/10.png"].texture,
+                speed: .6
+            },
+            {
+                texture: resources["images/text/11.png"].texture,
+                speed: .7
+            },
+            {
+                texture: resources["images/text/12.png"].texture,
+                speed: .9,
+                repeat: !0
+            },
+            {
+                texture: resources["images/text/13.png"].texture,
+                speed: .7
+            },
+            {
+                texture: resources["images/text/14.png"].texture,
+                speed: 3
+            },
+            {
+                texture: resources["images/text/15.png"].texture,
+                speed: .8
+            },
+            {
+                texture: resources["images/text/16.png"].texture,
+                speed: .6,
+                repeat: !0
+            },
+            {
+                texture: resources["images/text/17.png"].texture,
+                speed: 0
+            },
+            {
+                texture: resources["images/text/18.png"].texture,
+                speed: 2
+            },
+            {
+                texture: resources["images/text/20.png"].texture,
+                speed: .8
+            }];
+            for (var i = 0; i < y.length; i++) {
+            	var P = new Container(),
+                j = new Sprite(resources["images/text/bg.png"].texture);
+                if (j.position.set( - 1625, 157), P.addChild(j), y[i].repeat) {
+                    var F = new Container(),
+                    k = new Sprite(y[i].texture),
+                    L = new Sprite(y[i].texture);
+                    L.position.x = L.width,
+                    F.addChild(k, L);
+                    var fe = L.width;
+                    new TWEEN.Tween(F.position).to({
+                        x: -fe
+                    },
+                    80 * fe * y[i].speed).repeat(1 / 0).start(),
+                    P.addChild(F)
+                } else {
+                    var F = new Sprite(y[i].texture);
+                    if (F.position.set(50, (160 - F.height) / 2), P.speed = y[i].speed ? y[i].speed: 0, P.addChild(F), i == y.length - 1) {
+                        var Se = new Sprite(resources["images/text/bottom.png"].texture);
+                        Se.position.set( - 752, 160),
+                        P.addChild(Se)
+                    }
+                }
+                P.position.set(0, 160 * i),
+                stage.addChild(P)
+            }
+            G = new Container();
+            for (var i = 0; i < 120; i++) {
+                var rt = new Sprite(resources["images/2/rect.png"].texture);
+                rt.position.set(7 * (i - 5), 0),
+                G.addChild(rt)
+            }
+            G.position.set(0, 2720),
+            stage.addChild(G),
+            stage.pivot.set(375, 1680),
+            stage.position.set(375, 2480),
+            V = new Container(),
+            V.position.set(0, 4e3);
+            var U=[];
+		    U.width = 20 * a;
+            U.height = 12e3;
+            debugger;
+		  animate();
+		}
+		function animate(){
+			requestAnimationFrame( animate );
+			render();
+		}
+		function render(){
+			TWEEN.update();
+			renderer.render(stage);
+		}
+  	</script>
+</body>
+</html>
