@@ -14,7 +14,6 @@
 <body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.7.1/pixi.min.js"></script>
 <script src="js/pixi-projection.js"></script>
-<script src="js/Tween.js"></script>
 <script src="Layer.js"></script>
 <script>
 //简写
@@ -81,10 +80,6 @@ function init(){
 
   container1.addChild(yellow);
 
-
-  app.ticker.add(function() {
-      TWEEN.update();
-  });
 
 
   function stopRotate(){
